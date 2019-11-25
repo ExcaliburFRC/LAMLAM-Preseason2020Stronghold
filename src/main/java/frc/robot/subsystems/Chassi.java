@@ -12,14 +12,12 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.commands.ChassiDrive;
+import frc.robot.ChassiCommands.*;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 
-/**
- * Add your docs here.
- */
+
 public class Chassi extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
   private static Chassi instance;
   Spark LBM, LFM, RBM, RFM;
@@ -27,6 +25,7 @@ public class Chassi extends Subsystem {
   SpeedControllerGroup right;
   SpeedControllerGroup left;
   DifferentialDrive drive;
+  AHRS gyro;
   
   private Chassi(){
     LBM = new Spark(RobotMap.LBMP);
@@ -41,6 +40,8 @@ public class Chassi extends Subsystem {
 
     LE = new Encoder(RobotMap.LE1, RobotMap.LE2);
     RE = new Encoder(RobotMap.RE1, RobotMap.RE2);
+
+    gyro =  new AHRS(SPI.Port.kMXP);
   }
 
   public static Chassi getInstance(){
@@ -62,6 +63,14 @@ public class Chassi extends Subsystem {
   public void resetEncoders(){
     LE.reset();
     RE.reset();
+  }
+
+  public void resetGyro(){
+    gyro.reset();
+  }
+
+  public double getGyroValue(){
+    return gyro.getAngle();
   }
 
   @Override

@@ -5,17 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.ChassiCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
-import frc.robot.subsystems.Tower;
+import frc.robot.subsystems.Chassi;
+import frc.robot.OI;
 
-public class TowerCommand extends Command {
-  Tower t = Robot.m_tower;
-  public TowerCommand() {
-    requires(Robot.m_tower);
+public class ChassiDrive extends Command {
+  Chassi c = Robot.m_chassi;
+  public ChassiDrive() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(Robot.m_chassi);
   }
 
   // Called just before this Command runs the first time
@@ -26,13 +28,7 @@ public class TowerCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (OI.armJoystick.getPOV() == 90){
-      t.setTurnRate(-0.3);
-    } else if (OI.armJoystick.getPOV() == 270) {
-      t.setTurnRate(0.3);
-    } else {
-      t.setTurnRate(0);
-    }
+    c.getDrive().tankDrive(OI.driveJoystick.getRawAxis(1), OI.driveJoystick.getRawAxis(5));
   }
 
   // Make this return true when this Command no longer needs to run execute()

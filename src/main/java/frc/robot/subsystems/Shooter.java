@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.subsystems.RobotMap;
-import frc.robot.commands.ShooterDrive;
+import frc.robot.ShooterCommands.*;
 
 /**
  * Add your docs here.

@@ -11,7 +11,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Encoder;
-import frc.robot.commands.TowerCommand;
+import frc.robot.TowerCommands.*;
 
 /**
  * Add your docs here.

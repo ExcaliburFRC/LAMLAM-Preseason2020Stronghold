@@ -5,35 +5,40 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.ChassiCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.Shooter;
 import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.subsystems.Chassi;
 
-public class ShooterDrive extends Command {
-  Shooter s = Robot.m_shooter;
-  public ShooterDrive() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.m_shooter);
+public class DriveStrightOI extends Command {
+
+  Chassi c;
+  double turn_kP = 0.075;
+  double originalAngle;
+  double xSpeed;
+  double zRotation;
+
+  public DriveStrightOI() {
+    requires(Robot.m_chassi);
+    c = Robot.m_chassi;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    originalAngle = c.getGyroValue();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (OI.driveJoystick.getRawButton(6)){
-      s.incTilt(0.05);
-    } 
-    else if (OI.driveJoystick.getRawButton(5)){
-      s.setTilt(-0.05);
-    }
+    // xSpeed = OI.driveJoystick.getRawAxis(-1); //need to find this out with OI
+    xSpeed = 0.3;
+    zRotation = turn_kP * (c.getGyroValue() - originalAngle);
+
+    c.getDrive().arcadeDrive(xSpeed, zRotation);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -45,6 +50,7 @@ public class ShooterDrive extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    c.getDrive().tankDrive(0, 0);
   }
 
   // Called when another command which requires one or more of the same

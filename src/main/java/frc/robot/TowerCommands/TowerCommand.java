@@ -5,19 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.TowerCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
-import frc.robot.subsystems.Chassi;
 import frc.robot.OI;
+import frc.robot.Robot;
+import frc.robot.subsystems.Tower;
 
-public class ChassiDrive extends Command {
-  Chassi c = Robot.m_chassi;
-  public ChassiDrive() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.m_chassi);
+public class TowerCommand extends Command {
+  Tower t = Robot.m_tower;
+  double turn_kP = 0.04;
+  public TowerCommand() {
+    requires(Robot.m_tower);
   }
 
   // Called just before this Command runs the first time
@@ -28,7 +27,18 @@ public class ChassiDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    c.getDrive().tankDrive(OI.driveJoystick.getRawAxis(1), OI.driveJoystick.getRawAxis(5));
+    if (OI.armJoystick.getPOV() == 90){
+      t.setTurnRate(-0.3);
+    } else if (OI.armJoystick.getPOV() == 270) {
+      t.setTurnRate(0.3);
+    } else {
+      //Joystick is not being used
+      if (Robot.m_limelight.getTv() == 1){ //Limelight detected target
+        t.setTurnRate(turn_kP * Robot.m_limelight.getTx());
+      } else {
+        t.setTurnRate(0); //block mode
+      }
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Chassi;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Tower;
+import frc.robot.subsystems.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
   public static Chassi m_chassi;
   public static Shooter m_shooter;
   public static Tower m_tower;
+  public static Limelight m_limelight;
   public static OI oi;
 
   @Override
@@ -39,6 +41,7 @@ public class Robot extends TimedRobot {
     m_chassi = Chassi.getInstance();
     m_shooter = Shooter.getInstance();
     m_tower = Tower.getInstance();
+    m_limelight = Limelight.getInstance();
   }
 
   /**
