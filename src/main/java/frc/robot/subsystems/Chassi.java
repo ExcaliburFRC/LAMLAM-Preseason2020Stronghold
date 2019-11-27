@@ -16,10 +16,6 @@ import frc.robot.ChassiCommands.*;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
-//Dvir comment
-//Second comment
-//Third Comment
-
 public class Chassi extends Subsystem {
 
   private static Chassi instance;
