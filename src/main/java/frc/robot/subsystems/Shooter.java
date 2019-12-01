@@ -50,6 +50,10 @@ public class Shooter extends Subsystem {
     this.tiltServo.set(this.tiltServo.get()+val);
   }
 
+  public double distToPower(double dist){
+    return dist/3; //TODO needs to be tuned
+  }
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

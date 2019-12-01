@@ -96,6 +96,10 @@ public class Limelight extends Subsystem {
         return tvert;
     }
 
+    public double getDistance(){
+        return getTy()*0.8; //TODO needs to be tuned
+    }
+
     @Override
     public void initDefaultCommand() {
     }
