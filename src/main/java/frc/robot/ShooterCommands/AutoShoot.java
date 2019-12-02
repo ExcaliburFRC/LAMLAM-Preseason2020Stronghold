@@ -10,6 +10,7 @@ package frc.robot.ShooterCommands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.TowerCommands.*;
 import frc.robot.LimelightCommands.*;
+import frc.robot.GeneralCommands.*;
 
 public class AutoShoot extends CommandGroup {
   /**
@@ -35,9 +36,10 @@ public class AutoShoot extends CommandGroup {
 
     // Start Accelarating FlyWheel for X seconds
     // When tx is in range, shoot
-    addSequential(new WaitUntilTolarance(3));
+    addSequential(new WaitUntilTolarance(4));
     addSequential(new AccelerateFlyWheelTimed(4000));
     addSequential(new PutBallInShooter());
+    addSequential(new Wait(3000));
     addSequential(new StopShooter());
   }
 }
