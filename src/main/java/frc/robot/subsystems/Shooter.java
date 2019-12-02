@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.subsystems.RobotMap;
+import frc.robot.RobotMap;
 import frc.robot.ShooterCommands.*;
 
 /**

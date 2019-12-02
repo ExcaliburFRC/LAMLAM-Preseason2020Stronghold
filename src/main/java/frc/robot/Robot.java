@@ -10,9 +10,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.Chassi;
+import frc.robot.subsystems.Collector;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Tower;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Transporter;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,7 +32,9 @@ public class Robot extends TimedRobot {
   public static Chassi m_chassi;
   public static Shooter m_shooter;
   public static Tower m_tower;
+  public static Transporter m_transporter;
   public static Limelight m_limelight;
+  public static Collector m_collector;
   public static OI oi;
 
   @Override
@@ -40,6 +44,8 @@ public class Robot extends TimedRobot {
     m_shooter = Shooter.getInstance();
     m_tower = Tower.getInstance();
     m_limelight = Limelight.getInstance();
+    m_collector = Collector.getInstance();
+    m_transporter = Transporter.getInstance();
   }
 
   /**
