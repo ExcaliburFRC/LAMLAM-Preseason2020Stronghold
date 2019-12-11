@@ -32,7 +32,7 @@ public class ShooterDrive extends Command {
       s.incTilt(0.05);
     } 
     else if (OI.driveJoystick.getRawButton(5)){
-      s.setTilt(-0.05);
+      s.incTilt(-0.05);
     }
   }
 
