@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -22,15 +25,18 @@ public class Shooter extends Subsystem {
   // here. Call these from Commands.
   private static Shooter instance;
 
-  Spark sm1, sm2;
-  SpeedControllerGroup shootGroup;
-  Servo tiltServo;
+  TalonSRX shooterMotor;
+
+  public double SPEED_SETPOINT;
+  private final double SPEED_TOLARANCE;
+  private boolean PERSUIT_SPEED;
   
   private Shooter(){
-    tiltServo = new Servo(RobotMap.TILTSERVOP);
-    sm1 = new Spark(RobotMap.SM1P);
-    sm2 = new Spark(RobotMap.SM2P);
-    shootGroup = new SpeedControllerGroup(sm1, sm2);
+    shooterMotor = new TalonSRX(RobotMap.SMP);
+
+    SPEED_SETPOINT = 0;
+    SPEED_TOLARANCE = 50;
+    PERSUIT_SPEED = false;
   }
 
   public static Shooter getInstance(){
@@ -39,19 +45,30 @@ public class Shooter extends Subsystem {
   }
 
   public void setShootingPower(double p){
-    shootGroup.set(p);
-  }
-
-  public void setTilt(double val){
-    this.tiltServo.set(val);
-  }
-
-  public void incTilt(double val){
-    this.tiltServo.set(this.tiltServo.get()+val);
+    shooterMotor.set(ControlMode.PercentOutput,p);
   }
 
   public double distToPower(double dist){
     return dist/3; //TODO needs to be tuned
+  }
+
+  @Override
+  public void periodic(){
+    if (PERSUIT_SPEED){
+      shooterMotor.set(ControlMode.Velocity, SPEED_SETPOINT);
+    }
+  }
+
+  public boolean isInSpeedRange(){
+    return Math.abs(SPEED_SETPOINT - shooterMotor.getClosedLoopError()) < SPEED_TOLARANCE;
+  }
+
+  public void setSpeedPersuit(boolean t){
+    PERSUIT_SPEED = t;
+  }
+
+  public void setSpeedSetpoint(double speed){
+    SPEED_SETPOINT = speed;
   }
 
   @Override

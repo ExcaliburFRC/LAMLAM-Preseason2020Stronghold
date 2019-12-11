@@ -16,13 +16,8 @@ import frc.robot.subsystems.Tower;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Transporter;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.gradle file in the
- * project.
- */
+//LINK FOR PHOENIX API:
+//http://devsite.ctr-electronics.com/maven/release/com/ctre/phoenix/Phoenix-latest.json
 public class Robot extends TimedRobot {
 
   /**

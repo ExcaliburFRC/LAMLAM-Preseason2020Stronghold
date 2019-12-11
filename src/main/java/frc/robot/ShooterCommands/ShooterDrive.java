@@ -28,12 +28,7 @@ public class ShooterDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (OI.driveJoystick.getRawButton(6)){
-      s.incTilt(0.05);
-    } 
-    else if (OI.driveJoystick.getRawButton(5)){
-      s.incTilt(-0.05);
-    }
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()

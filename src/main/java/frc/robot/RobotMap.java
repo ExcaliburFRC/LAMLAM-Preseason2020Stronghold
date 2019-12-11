@@ -7,9 +7,7 @@ public class RobotMap{
 	public static int LFMP = 3; // LeftFrontMotorPort
     public static int RFMP = 4; // RightFrontMotorPort
 
-    public static int SM1P = 5;
-    public static int SM2P = 6;
-    public static int TILTSERVOP = 0;
+    public static int SMP = 0;
 
     public static int LE1 = 0;
     public static int LE2 = 0;

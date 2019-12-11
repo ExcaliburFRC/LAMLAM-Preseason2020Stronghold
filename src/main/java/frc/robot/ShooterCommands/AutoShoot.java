@@ -10,12 +10,15 @@ package frc.robot.ShooterCommands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.TowerCommands.*;
 import frc.robot.LimelightCommands.*;
+import frc.robot.Robot;
 import frc.robot.GeneralCommands.*;
+import frc.robot.TransporterCommands.*;
 
 public class AutoShoot extends CommandGroup {
   /**
    * Add your docs here.
    */
+  double reqSpeed;
   public AutoShoot() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
@@ -36,10 +39,17 @@ public class AutoShoot extends CommandGroup {
 
     // Start Accelarating FlyWheel for X seconds
     // When tx is in range, shoot
-    addSequential(new WaitUntilTolarance(4));
-    addSequential(new AccelerateFlyWheelTimed(4000));
+    addSequential(new WaitUntilTolarance(3));
+    addSequential(new WaitForSpeed());
     addSequential(new PutBallInShooter());
     addSequential(new Wait(3000));
     addSequential(new StopShooter());
+  }
+
+  @Override
+  public void execute(){
+    //TODO add ultrasonic dist
+    reqSpeed = Robot.m_shooter.distToPower(Robot.m_limelight.getDistance());
+    Robot.m_shooter.setSpeedSetpoint(reqSpeed);
   }
 }

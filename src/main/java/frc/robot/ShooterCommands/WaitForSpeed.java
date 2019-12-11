@@ -9,32 +9,28 @@ package frc.robot.ShooterCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.Shooter;
 
-public class StopShooter extends Command {
-  Shooter s = Robot.m_shooter;
-  public StopShooter() {
+public class WaitForSpeed extends Command {
+  public WaitForSpeed() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(s);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    s.setSpeedPersuit(false);
-    s.setShootingPower(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.m_shooter.setSpeedPersuit(true);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return (Robot.m_shooter.isInSpeedRange());
   }
 
   // Called once after isFinished returns true

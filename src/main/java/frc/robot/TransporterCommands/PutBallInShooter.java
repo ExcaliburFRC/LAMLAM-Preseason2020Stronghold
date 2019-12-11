@@ -5,33 +5,37 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.TowerCommands;
+package frc.robot.TransporterCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.Transporter;;
 
 public class PutBallInShooter extends Command {
+  Transporter t = Robot.m_transporter;
+  public double startTime;
   public PutBallInShooter() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(t);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    startTime = System.currentTimeMillis();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Use motor to push ball up into shooter
+    t.setTransportSpeed(0.3);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    //return !isBallIn
-    return false;
+    return (System.currentTimeMillis() - startTime) >= 2500;
   }
 
   // Called once after isFinished returns true
