@@ -13,7 +13,7 @@ public class RobotMap{
     public static int RE1 = 0;
     public static int RE2 = 0;
 
-    public static int TTM = 0;
+    public static int TTM = 2;
     public static int TME1 = 0;
     public static int TME2 = 0;
 
@@ -28,5 +28,5 @@ public class RobotMap{
     public static int BallInSensorPingP = 0;
     public static int BallInSensorEchoP = 0;
     
-    public static final int transportMotorP = 0;
+    public static final int transportMotorP = 1;
 }
