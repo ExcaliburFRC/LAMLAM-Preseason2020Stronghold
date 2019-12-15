@@ -10,6 +10,10 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Spark;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.TowerCommands.*;
 import frc.robot.RobotMap;
@@ -20,13 +24,13 @@ import frc.robot.RobotMap;
 public class Tower extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  Spark turnMotor;
+  VictorSPX turnMotor;
   Encoder turnMotorEncoder;
 
   static Tower instance;
 
   private Tower(){
-    turnMotor = new Spark(RobotMap.TTM);
+    turnMotor = new VictorSPX(RobotMap.TTM);
     turnMotorEncoder = new Encoder(RobotMap.TME1, RobotMap.TME2);
   }
 
@@ -36,7 +40,7 @@ public class Tower extends Subsystem {
   }
 
   public void setTurnRate(double p){
-    turnMotor.set(p);
+    turnMotor.set(ControlMode.PercentOutput,p);
   }
 
   public int getTurnValue(){

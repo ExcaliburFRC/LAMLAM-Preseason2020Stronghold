@@ -13,14 +13,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.TransporterCommands.TransporterDrive;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 public class Transporter extends Subsystem {
   private static Transporter instance;
-  private Spark trasportMotor; 
+  private VictorSPX trasportMotor; 
   private Ultrasonic isBallInSensor;
 
   private Transporter(){
     isBallInSensor = new Ultrasonic(RobotMap.BallInSensorPingP, RobotMap.BallInSensorEchoP);
-    trasportMotor = new Spark(RobotMap.transportMotorP);
+    trasportMotor = new VictorSPX(RobotMap.transportMotorP);
   }
 
   public static Transporter getInstance(){
@@ -29,7 +32,7 @@ public class Transporter extends Subsystem {
   }
 
   public void setTransportSpeed(double speed){
-    this.trasportMotor.set(speed);
+    this.trasportMotor.set(ControlMode.PercentOutput, speed);
   }
 
   public double getUltrasonicValue(){
