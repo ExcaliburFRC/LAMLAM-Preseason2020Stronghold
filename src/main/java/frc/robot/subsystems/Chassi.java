@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -26,12 +27,13 @@ public class Chassi extends Subsystem {
   SpeedControllerGroup left;
   DifferentialDrive drive;
   AHRS gyro;
+  Compressor compressor;
   
   private Chassi(){
-    LBM = new Spark(RobotMap.LBMP);
-    LFM = new Spark(RobotMap.LFMP);
-    RBM = new Spark(RobotMap.RBMP);
-    RFM = new Spark(RobotMap.RFMP);
+    // LBM = new Spark(RobotMap.LBMP);
+    // LFM = new Spark(RobotMap.LFMP);
+    // RBM = new Spark(RobotMap.RBMP);
+    // RFM = new Spark(RobotMap.RFMP);
 
     right = new SpeedControllerGroup(RBM, RFM);
     left = new SpeedControllerGroup(LBM, LFM);
@@ -42,6 +44,8 @@ public class Chassi extends Subsystem {
     RE = new Encoder(RobotMap.RE1, RobotMap.RE2);
 
     gyro =  new AHRS(SPI.Port.kMXP);
+
+    compressor = new Compressor();
   }
 
   public static Chassi getInstance(){

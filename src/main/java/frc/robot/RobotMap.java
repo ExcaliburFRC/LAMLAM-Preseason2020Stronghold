@@ -14,19 +14,19 @@ public class RobotMap{
     public static int RE2 = 0;
 
     public static int TTM = 2;
-    public static int TME1 = 0;
-    public static int TME2 = 0;
+    public static int TME1 = 3;
+    public static int TME2 = 4;
 
     public static int rollerP = 2;
 
     public static int lifter1P1 = 0;
-    public static int lifter1P2 = 0;
+    public static int lifter1P2 = 1;
 
-    public static int lifter2P1 = 0;
-    public static int lifter2P2 = 0;
+    public static int lifter2P1 = 2;
+    public static int lifter2P2 = 3;
 
     public static int BallInSensorPingP = 0;
-    public static int BallInSensorEchoP = 0;
+    public static int BallInSensorEchoP = 1;
     
     public static final int transportMotorP = 1;
 }
