@@ -6,16 +6,16 @@ public class RobotMap{
 	public static int LFMP = 1; // LeftFrontMotorPort
     public static int RFMP = 9; // RightFrontMotorPort
 
-    public static int SMP = 0;
+    public static int SMP = 2;
 
     public static int LE1 = 0;
-    public static int LE2 = 0;
-    public static int RE1 = 0;
-    public static int RE2 = 0;
+    public static int LE2 = 1;
+    public static int RE1 = 2;
+    public static int RE2 = 3;
 
-    public static int TTM = 2;
-    public static int TME1 = 3;
-    public static int TME2 = 4;
+    public static int TTM = 1;
+    public static int TME1 = 4;
+    public static int TME2 = 5;
 
     public static int rollerP = 2;
 
@@ -28,5 +28,5 @@ public class RobotMap{
     public static int BallInSensorPingP = 0;
     public static int BallInSensorEchoP = 1;
     
-    public static final int transportMotorP = 1;
+    public static final int transportMotorP = 3;
 }

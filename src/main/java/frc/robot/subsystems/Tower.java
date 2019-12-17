@@ -50,7 +50,7 @@ public class Tower extends Subsystem {
   public void resetEncoder(){
     turnMotorEncoder.reset();
   }
-
+  
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new TowerCommand());

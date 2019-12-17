@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.ShooterCommands.*;
 
@@ -35,8 +36,11 @@ public class Shooter extends Subsystem {
     shooterMotor = new TalonSRX(RobotMap.SMP);
 
     SPEED_SETPOINT = 0;
-    SPEED_TOLARANCE = 50;
+    SPEED_TOLARANCE = 1000;
     PERSUIT_SPEED = false;
+
+    shooterMotor.setSelectedSensorPosition(0);
+    shooterMotor.setSensorPhase(true);
   }
 
   public static Shooter getInstance(){
@@ -55,12 +59,15 @@ public class Shooter extends Subsystem {
   @Override
   public void periodic(){
     if (PERSUIT_SPEED){
+      SmartDashboard.putBoolean("Speed_Persuit", true);
       shooterMotor.set(ControlMode.Velocity, SPEED_SETPOINT);
+    } else {
+      SmartDashboard.putBoolean("Speed_Persuit", false);
     }
   }
 
   public boolean isInSpeedRange(){
-    return Math.abs(SPEED_SETPOINT - shooterMotor.getClosedLoopError()) < SPEED_TOLARANCE;
+    return Math.abs(this.getError()) < SPEED_TOLARANCE;
   }
 
   public void setSpeedPersuit(boolean t){
@@ -68,7 +75,15 @@ public class Shooter extends Subsystem {
   }
 
   public void setSpeedSetpoint(double speed){
-    SPEED_SETPOINT = speed;
+    SPEED_SETPOINT = -speed;
+  }
+
+  public int getSpeed(){
+    return shooterMotor.getSelectedSensorVelocity();
+  }
+
+  public int getError(){
+    return shooterMotor.getClosedLoopError()+4400;
   }
 
   @Override

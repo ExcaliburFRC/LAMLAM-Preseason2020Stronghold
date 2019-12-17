@@ -14,6 +14,7 @@ import frc.robot.subsystems.Collector;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Tower;
 import frc.robot.subsystems.Limelight;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Transporter;
 
 //LINK FOR PHOENIX API:
@@ -41,6 +42,7 @@ public class Robot extends TimedRobot {
     m_limelight = Limelight.getInstance();
     m_collector = Collector.getInstance();
     m_transporter = Transporter.getInstance();
+    oi.initJoystickActions();
   }
 
   /**
@@ -53,6 +55,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putNumber("encoderVal", m_tower.getTurnValue());
+    SmartDashboard.putNumber("Speed", m_shooter.getSpeed());
+    SmartDashboard.putNumber("Error", m_shooter.getError());
   }
 
   /**
@@ -77,6 +82,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
    
+  }
+
+  @Override
+  public void teleopInit() {
+    m_tower.resetEncoder();
   }
 
   /**

@@ -8,6 +8,7 @@
 package frc.robot.ShooterCommands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.TowerCommands.*;
 import frc.robot.LimelightCommands.*;
 import frc.robot.Robot;
@@ -39,17 +40,18 @@ public class AutoShoot extends CommandGroup {
 
     // Start Accelarating FlyWheel for X seconds
     // When tx is in range, shoot
-    addSequential(new WaitUntilTolarance(3));
+    // addSequential(new WaitUntilTolarance(3));
     addSequential(new WaitForSpeed());
     addSequential(new PutBallInShooter());
-    addSequential(new Wait(3000));
+    // addSequential(new Wait(750));
     addSequential(new StopShooter());
   }
 
   @Override
   public void execute(){
     //TODO add ultrasonic dist
-    reqSpeed = Robot.m_shooter.distToPower(Robot.m_limelight.getDistance());
+    // reqSpeed = Robot.m_shooter.distToPower(Robot.m_limelight.getDistance());
+    reqSpeed = 42200;
     Robot.m_shooter.setSpeedSetpoint(reqSpeed);
   }
 }

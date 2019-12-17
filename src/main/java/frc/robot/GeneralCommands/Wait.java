@@ -8,11 +8,11 @@
 package frc.robot.GeneralCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Wait extends Command {
-  double ticks;
   int milliTime;
-  double k_tickToTime = 0.02;
+  long time;
   public Wait(int milliTime) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -22,19 +22,19 @@ public class Wait extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    ticks = milliTime/k_tickToTime;
+    SmartDashboard.putNumber("state", 3);
+    time = System.currentTimeMillis();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    ticks--;
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return ticks<=0;
+    return System.currentTimeMillis() - time >= milliTime;
   }
 
   // Called once after isFinished returns true

@@ -5,38 +5,41 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.ShooterCommands;
+package frc.robot.TowerCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.Shooter;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Tower;
 
-public class StopShooter extends Command {
-  Shooter s = Robot.m_shooter;
-  public StopShooter() {
+public class CenterTurrent extends Command {
+  Tower t = Robot.m_tower;
+  double tolarance;
+  public CenterTurrent() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(s);
+    requires(t);
+    tolarance = 60;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    SmartDashboard.putNumber("state", 4);
-    s.setSpeedPersuit(false);
-    s.setShootingPower(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if (t.getTurnValue() > tolarance){
+      t.setTurnRate(0.275);
+    } else if (t.getTurnValue() < -tolarance){
+      t.setTurnRate(-0.275);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

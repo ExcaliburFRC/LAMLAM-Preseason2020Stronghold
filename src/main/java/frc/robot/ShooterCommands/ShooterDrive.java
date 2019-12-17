@@ -28,7 +28,15 @@ public class ShooterDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+    if (OI.armJoystick.getRawButton(1)){
+      s.setSpeedPersuit(true);
+      s.setSpeedSetpoint(42200);
+    } else {
+      s.setSpeedPersuit(false);
+      s.setShootingPower(0);
+      // s.setShootingPower(OI.armJoystick.getRawAxis(1));
+    }
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

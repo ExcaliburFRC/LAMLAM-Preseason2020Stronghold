@@ -28,24 +28,27 @@ public class Chassi extends Subsystem {
   DifferentialDrive drive;
   AHRS gyro;
   Compressor compressor;
+  boolean compressorState;
   
   private Chassi(){
-    // LBM = new Spark(RobotMap.LBMP);
-    // LFM = new Spark(RobotMap.LFMP);
-    // RBM = new Spark(RobotMap.RBMP);
-    // RFM = new Spark(RobotMap.RFMP);
+    LBM = new Spark(RobotMap.LBMP);
+    LFM = new Spark(RobotMap.LFMP);
+    RBM = new Spark(RobotMap.RBMP);
+    RFM = new Spark(RobotMap.RFMP);
 
     right = new SpeedControllerGroup(RBM, RFM);
     left = new SpeedControllerGroup(LBM, LFM);
 
     drive = new DifferentialDrive(left, right);
 
-    LE = new Encoder(RobotMap.LE1, RobotMap.LE2);
-    RE = new Encoder(RobotMap.RE1, RobotMap.RE2);
+    // LE = new Encoder(RobotMap.LE1, RobotMap.LE2);
+    // RE = new Encoder(RobotMap.RE1, RobotMap.RE2);
 
     gyro =  new AHRS(SPI.Port.kMXP);
 
     compressor = new Compressor();
+    compressorState = false;
+    setCompressorState(false);
   }
 
   public static Chassi getInstance(){
@@ -75,6 +78,15 @@ public class Chassi extends Subsystem {
 
   public double getGyroValue(){
     return gyro.getAngle();
+  }
+
+  public void setCompressorState(boolean compressorState) {
+    this.compressor.setClosedLoopControl(compressorState);
+    this.compressorState = compressorState;
+  }
+
+  public boolean getCompressorState(){
+    return this.compressorState;
   }
 
   @Override

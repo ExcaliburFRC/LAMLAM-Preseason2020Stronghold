@@ -27,10 +27,10 @@ public class TransporterDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (OI.armJoystick.getPOV() == 0){
-      t.setTransportSpeed(0.6);
+    if (OI.armJoystick.getPOV() == 0 || OI.armJoystick.getRawButton(2)){
+      t.setTransportSpeed(0.4);
     } else if(OI.armJoystick.getPOV() == 180){
-      t.setTransportSpeed(-0.6);
+      t.setTransportSpeed(-0.4);
     } else {
       t.setTransportSpeed(0);
     }
