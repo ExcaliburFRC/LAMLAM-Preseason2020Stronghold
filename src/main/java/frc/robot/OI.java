@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.ChassiCommands.toggleCompressorState;
 import frc.robot.ShooterCommands.AutoShoot;
 import frc.robot.TowerCommands.CenterTurrent;
+import frc.robot.ChassiCommands.stayInAngle;
 
 public class OI{
     public static Joystick driveJoystick;
@@ -15,6 +16,7 @@ public class OI{
     private static JoystickButton compressorButton;
     private static JoystickButton autoShoot;
     private static JoystickButton centerTurrent;
+    private static JoystickButton stayInAngle;
 
     private OI(){
         driveJoystick = new Joystick(1);
@@ -23,6 +25,7 @@ public class OI{
         compressorButton = new JoystickButton(driveJoystick,7);
         autoShoot = new JoystickButton(armJoystick, 11);
         centerTurrent = new JoystickButton(armJoystick, 5);
+        stayInAngle = new JoystickButton(armJoystick, 12);
     }
 
     public static OI getInstance(){
@@ -34,6 +37,7 @@ public class OI{
         compressorButton.whenPressed(new toggleCompressorState());
         autoShoot.whenPressed(new AutoShoot());
         centerTurrent.whileHeld(new CenterTurrent());
+        stayInAngle.toggleWhenPressed(new stayInAngle());
     }
 
 

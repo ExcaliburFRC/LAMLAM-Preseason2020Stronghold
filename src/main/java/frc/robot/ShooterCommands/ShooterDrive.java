@@ -30,11 +30,11 @@ public class ShooterDrive extends Command {
   protected void execute() {
     if (OI.armJoystick.getRawButton(1)){
       s.setSpeedPersuit(true);
-      s.setSpeedSetpoint(42200);
+      s.setSpeedSetpoint(50000);
     } else {
       s.setSpeedPersuit(false);
-      s.setShootingPower(0);
-      // s.setShootingPower(OI.armJoystick.getRawAxis(1));
+     s.setShootingPower(0);
+    //  s.setShootingPower(OI.armJoystick.getRawAxis(1));
     }
 
   }

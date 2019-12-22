@@ -35,7 +35,7 @@ public class CollectorDrive extends Command {
     }
 
     if (OI.armJoystick.getRawButton(2)){
-      c.setRoller(-0.8);
+      c.setRoller(-0.6);
     } else {
       c.setRoller(0);
     }

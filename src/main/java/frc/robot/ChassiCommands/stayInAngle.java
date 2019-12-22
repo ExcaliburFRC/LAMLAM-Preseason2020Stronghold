@@ -11,28 +11,37 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.subsystems.Chassi;
+import frc.robot.subsystems.Tower;
 
 public class stayInAngle extends Command {
   Chassi c = Robot.m_chassi;
+  Tower t =  Robot.m_tower;
   double originalAngle;
+  double originalTowerAngle;
 
   public stayInAngle() {
-    requires(Robot.m_chassi);
+    // requires(Robot.m_chassi);
+    requires(Robot.m_tower);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     originalAngle = c.getGyroValue();
+    originalTowerAngle = Robot.m_tower.getTurnValue();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     double val = c.getGyroValue() - originalAngle;
-    val *= -0.035;
-    c.getDrive().arcadeDrive(0, val);
-    SmartDashboard.putNumber("Gyro", val);
+    // val *= -0.035;
+    // c.getDrive().arcadeDrive(0, val);
+    double turrentError = val * 56.74 - (Robot.m_tower.getTurnValue()-originalTowerAngle);
+    turrentError = -0.000525*turrentError;
+    if (!((t.getTurnValue() > t.POS_LIMIT && turrentError < 0) || (t.getTurnValue() < t.NEG_LIMIT && turrentError > 0))){
+      Robot.m_tower.setTurnRate(turrentError);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

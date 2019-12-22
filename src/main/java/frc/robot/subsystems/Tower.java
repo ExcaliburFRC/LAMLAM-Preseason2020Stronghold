@@ -29,6 +29,9 @@ public class Tower extends Subsystem {
 
   static Tower instance;
 
+  public static final int POS_LIMIT = 6200;
+  public static final int NEG_LIMIT = -3000;
+
   private Tower(){
     turnMotor = new VictorSPX(RobotMap.TTM);
     turnMotorEncoder = new Encoder(RobotMap.TME1, RobotMap.TME2);

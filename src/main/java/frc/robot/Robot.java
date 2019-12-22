@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("encoderVal", m_tower.getTurnValue());
     SmartDashboard.putNumber("Speed", m_shooter.getSpeed());
     SmartDashboard.putNumber("Error", m_shooter.getError());
+    SmartDashboard.putNumber("Gyro Angle", m_chassi.getGyroValue());
   }
 
   /**
@@ -87,6 +88,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     m_tower.resetEncoder();
+    m_chassi.resetGyro();
   }
 
   /**
