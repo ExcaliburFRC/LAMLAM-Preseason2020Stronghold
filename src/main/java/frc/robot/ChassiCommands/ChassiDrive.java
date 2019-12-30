@@ -14,6 +14,8 @@ import frc.robot.OI;
 
 public class ChassiDrive extends Command {
   Chassi c = Robot.m_chassi;
+  double XVAL = 0.7;
+  double TURNVAL = 0.7;
   public ChassiDrive() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -29,7 +31,25 @@ public class ChassiDrive extends Command {
   @Override
   protected void execute() {
     // c.getDrive().tankDrive(OI.driveJoystick.getRawAxis(5)*0.8, OI.driveJoystick.getRawAxis(1)*0.8);
-    c.getDrive().arcadeDrive(OI.armJoystick.getRawAxis(1), OI.armJoystick.getRawAxis(2)*0.85);
+    // c.getDrive().arcadeDrive(OI.armJoystick.getRawAxis(1), OI.armJoystick.getRawAxis(2)*0.85);
+
+    if (OI.guitar.getPOV() == 0){ //front
+      c.getDrive().arcadeDrive(-XVAL,0);
+    }
+    
+    else if (OI.guitar.getPOV() == 90){ //right
+      c.getDrive().arcadeDrive(0, -TURNVAL);
+    }
+    
+    else if (OI.guitar.getPOV() == 180){ //back
+      c.getDrive().arcadeDrive(XVAL,0);
+    }
+    
+    else if (OI.guitar.getPOV() == 270){ //left
+      c.getDrive().arcadeDrive(0, TURNVAL);
+    } else { // nothing
+      c.getDrive().arcadeDrive(0,0);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

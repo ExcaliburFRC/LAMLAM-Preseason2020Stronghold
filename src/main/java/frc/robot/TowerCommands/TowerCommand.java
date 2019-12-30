@@ -28,9 +28,9 @@ public class TowerCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (OI.armJoystick.getPOV() == 90){
+    if (OI.guitar.getRawButton(2)){
       t.setTurnRate(0.3);
-    } else if (OI.armJoystick.getPOV() == 270) {
+    } else if (OI.guitar.getRawButton(1)) {
       t.setTurnRate(-0.3);
     } else {
       t.setTurnRate(0);

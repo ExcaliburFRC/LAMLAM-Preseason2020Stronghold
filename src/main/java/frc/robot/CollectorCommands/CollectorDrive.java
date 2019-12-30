@@ -28,13 +28,13 @@ public class CollectorDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (OI.armJoystick.getRawButton(3)){
+    if (OI.guitar.getRawButton(9) && OI.guitar.getRawButton(1)){
       c.setLifterState(true);
-    } else if (OI.armJoystick.getRawButton(4)) {
+    } else if (OI.guitar.getRawButton(9) && OI.guitar.getRawButton(2)) {
       c.setLifterState(false);
     }
 
-    if (OI.armJoystick.getRawButton(2)){
+    if (OI.guitar.getRawButton(3)){
       c.setRoller(-0.8);
     } else {
       c.setRoller(0);

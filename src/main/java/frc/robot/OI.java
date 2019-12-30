@@ -8,7 +8,9 @@ import frc.robot.TowerCommands.CenterTurrent;
 
 public class OI{
     public static Joystick driveJoystick;
-    public static Joystick armJoystick;
+    // public static Joystick armJoystick;
+    public static Joystick guitar;
+
 
     private static OI instance;
 
@@ -18,11 +20,12 @@ public class OI{
 
     private OI(){
         driveJoystick = new Joystick(1);
-        armJoystick = new Joystick(0);
+        // armJoystick = new Joystick(0);
+        guitar = new Joystick(2);
 
         compressorButton = new JoystickButton(driveJoystick,7);
-        autoShoot = new JoystickButton(armJoystick, 11);
-        centerTurrent = new JoystickButton(armJoystick, 5);
+        autoShoot = new JoystickButton(guitar, 8);
+        centerTurrent = new JoystickButton(guitar, 7);
     }
 
     public static OI getInstance(){
