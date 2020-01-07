@@ -28,6 +28,7 @@ public class Limelight extends Subsystem {
     double tlong;
     double thor;
     double tvert;
+    double camMode, ledMode, pipeline;
 
     private static Limelight instance;
 
@@ -53,6 +54,9 @@ public class Limelight extends Subsystem {
         this.tlong = this.getVar("tlong");
         this.thor = this.getVar("thor");
         this.tvert = this.getVar("tvert");
+        this.ledMode = this.getVar("ledMode");
+        this.camMode = this.getVar("camMode");
+        this.pipeline = this.getVar("pipeline");
     }
     
     public void setLEDMode(int mode){
@@ -61,6 +65,10 @@ public class Limelight extends Subsystem {
 
     public void setCamMode(int mode){
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(mode);
+    }
+
+    public void setPipeline(int pipenum){
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipenum);
     }
 
     public int getTv() {
@@ -94,6 +102,18 @@ public class Limelight extends Subsystem {
 
     public double getTvert() {
         return tvert;
+    }
+
+    public double getCamMode() {
+        return camMode;
+    }
+
+    public double getLEDMode() {
+        return ledMode;
+    }
+
+    public double getPipeline(){
+        return pipeline;
     }
 
     public double getDistance(){

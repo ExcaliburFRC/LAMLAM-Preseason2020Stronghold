@@ -43,7 +43,9 @@ public class Tower extends Subsystem {
   }
 
   public void setTurnRate(double p){
-    turnMotor.set(ControlMode.PercentOutput,p);
+    if (!((getTurnValue() > POS_LIMIT && p < 0 ) || (getTurnValue() < NEG_LIMIT && p > 0))){
+      turnMotor.set(ControlMode.PercentOutput,p);
+    }
   }
 
   public int getTurnValue(){

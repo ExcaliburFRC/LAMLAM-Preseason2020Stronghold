@@ -5,22 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.ShooterCommands;
+package frc.robot.GeneralCommands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.TowerCommands.*;
-import frc.robot.LimelightCommands.*;
-import frc.robot.Robot;
-import frc.robot.GeneralCommands.*;
-import frc.robot.TransporterCommands.*;
+import frc.robot.TowerCommands.CenterTurrent;
+import frc.robot.ChassiCommands.TXPersuite;
 
-public class AutoShoot extends CommandGroup {
+public class ChassiIP extends CommandGroup {
   /**
    * Add your docs here.
    */
-  double reqSpeed;
-  public AutoShoot() {
+  public ChassiIP() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -37,22 +32,7 @@ public class AutoShoot extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-
-    // Start Accelarating FlyWheel for X seconds
-    // When tx is in range, shoot
-    // addSequential(new WaitUntilTolarance(3));
-    addSequential(new WaitForSpeed());
-    addSequential(new PutBallInShooter());
-    // addSequential(new Wait(750));
-    addSequential(new StopShooter());
-  }
-
-  @Override
-  public void execute(){
-    //TODO add ultrasonic dist
-    // reqSpeed = Robot.m_shooter.distToPower(Robot.m_limelight.getDistance());
-    //47500
-    reqSpeed = 50000;
-    Robot.m_shooter.setSpeedSetpoint(reqSpeed);
+    addParallel(new TXPersuite());
+    addParallel(new CenterTurrent());
   }
 }

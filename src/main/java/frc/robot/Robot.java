@@ -14,8 +14,11 @@ import frc.robot.subsystems.Collector;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Tower;
 import frc.robot.subsystems.Limelight;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Transporter;
+import frc.robot.LimelightCommands.ToggleMode;
+import frc.robot.ShooterCommands.AutoShoot;
 
 //LINK FOR PHOENIX API:
 //http://devsite.ctr-electronics.com/maven/release/com/ctre/phoenix/Phoenix-latest.json
@@ -32,6 +35,7 @@ public class Robot extends TimedRobot {
   public static Limelight m_limelight;
   public static Collector m_collector;
   public static OI oi;
+  public static final SendableChooser<Integer> driveType = new SendableChooser<Integer>();;
 
   @Override
   public void robotInit() {
@@ -43,6 +47,16 @@ public class Robot extends TimedRobot {
     m_collector = Collector.getInstance();
     m_transporter = Transporter.getInstance();
     oi.initJoystickActions();
+
+    SmartDashboard.putData("AutoShoot", new AutoShoot());
+
+    driveType.setDefaultOption("Arcade", 1);
+    driveType.addOption("Tank", 0);
+    driveType.addOption("Curvature", 2);
+    SmartDashboard.putData("Drive Type Chooser",driveType);
+
+    SmartDashboard.putData("Driver Mode", new ToggleMode());
+    SmartDashboard.putNumber("Pipeline", 0);
   }
 
   /**
@@ -57,8 +71,11 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     SmartDashboard.putNumber("encoderVal", m_tower.getTurnValue());
     SmartDashboard.putNumber("Speed", m_shooter.getSpeed());
-    SmartDashboard.putNumber("Error", m_shooter.getError());
+    // SmartDashboard.putNumber("Error", m_shooter.getError());
     SmartDashboard.putNumber("Gyro Angle", m_chassi.getGyroValue());
+    SmartDashboard.putNumber("tx",m_limelight.getTx());
+    
+    m_limelight.setPipeline((int) SmartDashboard.getNumber("Pipeline", 0));
   }
 
   /**
@@ -89,6 +106,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     m_tower.resetEncoder();
     m_chassi.resetGyro();
+    SmartDashboard.putNumber("Pipeline", 1);
   }
 
   /**

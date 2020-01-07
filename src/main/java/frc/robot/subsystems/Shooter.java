@@ -59,10 +59,10 @@ public class Shooter extends Subsystem {
   @Override
   public void periodic(){
     if (PERSUIT_SPEED){
-      SmartDashboard.putBoolean("Speed_Persuit", true);
+      // SmartDashboard.putBoolean("Speed_Persuit", true);
       shooterMotor.set(ControlMode.Velocity, SPEED_SETPOINT);
     } else {
-      SmartDashboard.putBoolean("Speed_Persuit", false);
+      // SmartDashboard.putBoolean("Speed_Persuit", false);
     }
   }
 

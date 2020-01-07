@@ -11,11 +11,16 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.subsystems.Tower;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TowerCommand extends Command {
   Tower t = Robot.m_tower;
-  double turn_kP = 0.04;
-  double turn_Max = 0.3;
+  double turn_kP = 0.0005;
+  double turn_Max = 0.32;
+  double angleToTick = 56.74;
+  double aFF = 0.0925;
+  double turrentPower;
+
   public TowerCommand() {
     requires(Robot.m_tower);
   }
@@ -32,18 +37,23 @@ public class TowerCommand extends Command {
       t.setTurnRate(0.3);
     } else if (OI.armJoystick.getPOV() == 270) {
       t.setTurnRate(-0.3);
-    } else {
-      t.setTurnRate(0);
+    } 
+    else {
+      // //Joystick is not being used
+      if (Robot.m_limelight.getTv() == 1 && Robot.m_limelight.getCamMode() == 0){ //Limelight detected target
+        turrentPower = turn_kP * (Robot.m_limelight.getTx()-0.2) * angleToTick;
+        turrentPower += turrentPower > 0 ? aFF : -aFF;
+
+        boolean towerInBounds = !((t.getTurnValue() > t.POS_LIMIT && turrentPower < 0) || (t.getTurnValue() < t.NEG_LIMIT && turrentPower > 0));
+        boolean angleTolarance = Math.abs((Robot.m_limelight.getTx()-0.2)) > 0.75;
+
+        if (towerInBounds && angleTolarance){ //check you are not exiting the sides
+          Robot.m_tower.setTurnRate(clip(turrentPower,turn_Max));
+        }
+      } else {
+        t.setTurnRate(0); //block mode
+      }
     }
-    // } else {
-    //   t.setTurnRate(0);
-    //   // //Joystick is not being used
-    //   // if (Robot.m_limelight.getTv() == 1){ //Limelight detected target
-    //   //   t.setTurnRate(turn_kP * Robot.m_limelight.getTx());
-    //   // } else {
-    //   //   t.setTurnRate(0); //block mode
-    //   // }
-    // }
 
     // t.setTurnRate(OI.armJoystick.getRawAxis(2)*turn_Max);
 
@@ -64,5 +74,11 @@ public class TowerCommand extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+  }
+
+  private double clip(double val, double max){
+    if (val > max) return max;
+    else if (val < -max) return -max;
+    return val;
   }
 }
